@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="com.example.testoftest.dashboard.pojo.Data" />
+
+        <variable
+            name="clickhandler"
+            type="com.example.testoftest.dashboard.view.DetailActivity.ClickHandler" />
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".dashboard.view.GifsList">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/error_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image"
+                    setGif="@{data.images.original.url}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image"
+                    android:layout_marginTop="0dp"
+                    android:padding="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_title"
+                        style="@style/TextViewStyle"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/mavenpro_bold"
+                        android:maxLines="2"
+                        android:textSize="@dimen/_20sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@{data.title}" />
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/up_vote"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:onClick="@{(v) -> clickhandler.onUpVote(v,data)}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+                        app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/down_vote"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginStart="24dp"
+                        android:onClick="@{(v) -> clickhandler.onDownVote(v,data)}"
+                        android:background="?selectableItemBackgroundBorderless"
+                        app:layout_constraintBottom_toBottomOf="@+id/up_vote"
+                        app:layout_constraintStart_toEndOf="@+id/up_vote"
+                        app:layout_constraintTop_toTopOf="@+id/up_vote"
+                        app:srcCompat="@drawable/ic_thumb_down_black_24dp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/up_count"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@{data.upvote == null ? `0`:data.upvote.toString().trim()}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="@+id/up_vote"
+                        app:layout_constraintStart_toStartOf="@+id/up_vote"
+                        app:layout_constraintTop_toBottomOf="@+id/up_vote">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/down_count"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@{data.downvote == null ? `0`:data.downvote.toString().trim()}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="@+id/down_vote"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/down_vote"
+                        app:layout_constraintTop_toBottomOf="@+id/down_vote">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/rating"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@{@string/rating(data.rating)}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="@+id/up_vote"
+                        app:layout_constraintTop_toBottomOf="@+id/up_count">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/date"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@{@string/import_datetime(data.import_datetime)}"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="@+id/rating"
+                        app:layout_constraintTop_toBottomOf="@+id/rating">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+    </LinearLayout>
+
+</layout>
