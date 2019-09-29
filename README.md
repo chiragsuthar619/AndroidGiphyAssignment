@@ -1,7 +1,7 @@
 
 # Android Assignment sample App 
 
-This repository contains a detailed GIF search engine sample app, you gain free access to our ever-growing content library of GIFs and Stickers, plus brand new features like animated Emoji and Text
+This repository contains a user interface to allow a user to search for videos by keyword, you gain free access to our ever-growing content library of GIFs and Stickers, plus brand new features like animated Emoji and Text
 
 # The app has following packages:
 
